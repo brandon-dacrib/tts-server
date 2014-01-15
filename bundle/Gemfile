@@ -1,0 +1,5 @@
+gem 'parseconfig'
+gem 'sinatra'
+gem 'thin'
+#gem 'tts'
+gem 'festival'
