@@ -1,18 +1,19 @@
 require 'sinatra'
+require 'parseconfig'
 
 #todo 
-#1. move the params to a config file
-#2. work out a caching mechanism so that if the file exists then it isn't regenerated. 
+#1. work out a caching mechanism so that if the file exists then it isn't regenerated. 
 
-tts_engine = "/usr/local/bin/swift"
-tts_options = "-o"
+######### pull variables from config file #########
+config = ParseConfig.new('tts.conf')
 
-encode_engine = "/usr/bin/lame"
-encode_options = "-b 256 -h"
+tts_engine = config["tts_engine"]
+tts_options = config["tts_options"]
+encode_engine = config["encode_engine"]
+encode_options = config["encode_options"]
+outfile = config["outfile"]
 
-outfile = "/tmp/utter.mp3"
-
-#need to add code to generate a random string/number for the query name 
+############### actual app ################
 get '/api/say/' do
 	utter = URI.decode("#{params[:query]}")
 	lang = params[:t]
